@@ -1,3 +1,24 @@
+/* 
+ * This is the example lexer. It's unlicensed.
+ * You can compile this by making with: `make example'
+ * 
+ * The example looks for string of digits or lower case characters and 
+ * identifies them if found. It ignores strings starting with a `#' and
+ * ending with a newline. For example:
+ *
+ * 	$ ./example
+ * 	hello world 123 #comment
+ * 	 -> word: "hello"
+ *	 -> word: "world"
+ * 	 -> number: 123
+ *
+ * NOTE: The lexer provided has a buffer 10 characters long.  This is a 
+ * extremelly silly value and a proper value should be something on the order
+ * of a page (4K). The reason it's so small is to show what happens if you 
+ * try to fill this buffer with a token that is too long. You can try this
+ * yourself by providing a token longer than 10 characters.
+ */
+
 #include "lex.h"
 #include <stdio.h>
 #include <stdlib.h>
@@ -77,7 +98,7 @@ comment(Lex * l)
 int
 main(int argc, char * argv[])
 {
-	char buf[10];
+	char buf[10]; /* silly size: try 4096 */
 	Lex lexer;
 	Linit(&lexer, 0, buf, 10, error);
 	
