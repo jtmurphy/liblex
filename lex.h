@@ -1,20 +1,18 @@
-#ifndef LEX_H
-#define LEX_H
+#ifndef __LIBLEX_H__
+#define __LIBLEX_H__
 
-struct Lex;
+typedef struct Lex Lex;
+typedef void (*Lerror)(Lex *, char *);
 
-typedef void (*Lerror)(struct Lex *, char *);
-
-typedef
 struct Lex {  
-	char * tokstart;	/* Start of current token. */
+	char *tokstart;	/* Start of current token. */
 	int toklen;	/* Length of current token. */
-	char * buf;	/* Input stream (supplied by user). */
+	char *buf;	/* Input stream (supplied by user). */
 	int buflen;	/* Length of meaningful data in buf. */
 	int size;	/* Size of Lex->buf in memory. */
 	int lineno; 	/* Current line number. */
 	Lerror errfunc;	/* Function called on fatal error. */
-} Lex;
+};
 
 
 void Linit(Lex *, char *, int, Lerror);	/* Creates a new Lexer. */
@@ -26,6 +24,6 @@ void Laccept(Lex *, char *);	/* Linput() until char not in string. */
 void Lignore(Lex *, char *);	/* Ldiscard() until char not in string. */
 int Llineno(Lex *);		/* The current line number. */
 int Ltoklen(Lex *);		/* Length of current token in buffer */
-char * Ltok(Lex *, char *);	/* Fills buffer with copy of token */
+char *Ltok(Lex *, char *);	/* Fills buffer with copy of token */
 
 #endif
