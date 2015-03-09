@@ -79,7 +79,7 @@ main(int argc, char * argv[])
 {
 	char buf[10];
 	Lex lexer;
-	Linit(&lexer, buf, 10, error);
+	Linit(&lexer, 0, buf, 10, error);
 	
 	Lstate state;
 	state = start;

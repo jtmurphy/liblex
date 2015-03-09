@@ -35,10 +35,11 @@ struct Lex {
 	int buflen;	/* Length of meaningful data in buf. */
 	int size;	/* Size of Lex->buf in memory. */
 	int lineno; 	/* Current line number. */
+	int fd;		/* File descriptor to read from */
 	Lerror errfunc;	/* Function called on fatal error. */
 };
 
-void Linit(Lex *, char *, int, Lerror);	/* Creates a new Lexer. */
+void Linit(Lex *, int, char *, int, Lerror);	/* Creates a new Lexer. */
 char Linput(Lex *);		/* Next char in input stream. */
 char Lpeek(Lex *);		/* Next char without consuming. */
 void Lunput(Lex *);		/* Places a char back on the input stream. */

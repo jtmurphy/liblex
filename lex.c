@@ -31,12 +31,13 @@ static void Lfill(Lex *);
 static void Lshift(Lex *);
 
 void
-Linit(Lex * l, char * buf, int size, Lerror errfunc)
+Linit(Lex * l, int fd, char * buf, int size, Lerror errfunc)
 {
 	l->buf = l->tokstart = buf;
 	l->buflen = l->toklen = 0;
 	l->size = size;
 	l->lineno = 1;
+	l->fd = fd;
 	l->errfunc = errfunc;	
 }
 
@@ -44,7 +45,7 @@ static void
 Lfill(Lex * l)
 {
 	int rd, i;
-	rd = read(0, (l->buf + l->buflen), (l->size - l->buflen));
+	rd = read(l->fd, (l->buf + l->buflen), (l->size - l->buflen));
 	if (rd < 0) {
 		l->errfunc(l, "Read error");
 		return;
